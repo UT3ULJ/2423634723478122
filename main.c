@@ -69,7 +69,7 @@ void timer_ini(void)
 
 //-----------------------------------------//
 
-unsigned char n_count=1;
+unsigned char n_count=0;
 
 
 //-----------------------------------------//
