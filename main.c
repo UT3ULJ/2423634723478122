@@ -87,7 +87,6 @@ ISR (TIMER1_COMPA_vect)
 	
 }
 
-//-----------------------------------------//
 
 void ledprint(unsigned int number)
 {
@@ -119,7 +118,7 @@ int main(void)
 	
 	while (1)
 	{
-		for (i=0;i<10000;i++)
+		for (i=0;i<1000000;i++)
 		{
 			while (butstatus==0)
 			{
