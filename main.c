@@ -27,7 +27,7 @@
 #include <util/delay.h>
 //-----------------------------------------//
 unsigned int i;
-unsigned char R1=0, R2=0, R3=0, R4=0;
+unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
 //-----------------------------------------//
 
 void segchar (unsigned char seg)
@@ -76,12 +76,14 @@ unsigned char n_count=0;
 
 ISR (TIMER1_COMPA_vect)
 {
-	if (n_count==0) {PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTB&=~(1<<PORTB2);PORTB|=(1<<PORTB4); segchar(R1);}
-	if (n_count==1)	{PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTB&=~(1<<PORTB4);PORTB|=(1<<PORTB2); segchar(R2);}
-	if (n_count==2)	{PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB2);PORTB&=~(1<<PORTB4);PORTB|=(1<<PORTB1); segchar(R3);}
-	if (n_count==3)	{PORTB&=~(1<<PORTB1);PORTB&=~(1<<PORTB2);PORTB&=~(1<<PORTB4);PORTB|=(1<<PORTB0); segchar(R4);}
+	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
+	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
+	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
+	if (n_count==2)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
+	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
+	if (n_count==4)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
 	n_count++;
-	if (n_count>4) n_count=0;
+	if (n_count>5) n_count=0;
 	
 }
 
@@ -92,7 +94,9 @@ void ledprint(unsigned int number)
 	R1 = number%10;
 	R2 = number%100/10;
 	R3 = number%1000/100;
-	R4 = number/1000;
+	R4 = number%10000/1000;
+	R5 = number%10000/10000;
+	R6 = number/100000;
 }
 //-----------------------------------------//
 
@@ -109,7 +113,7 @@ int main(void)
 	DDRC=0b10011111;
 	PORTD=0b00000000;
 	PORTB=0b01001111;
-	PORTC=0b00011111;
+	PORTC=0b00001111;
 	i=0;
 	sei();
 	
