@@ -109,9 +109,9 @@ int main(void)
 	
 	DDRD=0xFF;
 	DDRB=0b00001111;
-	DDRC=0b10011111;
+	DDRC=0b00011111;
 	PORTD=0b00000000;
-	PORTB=0b01001111;
+	PORTB=0b00001111;
 	PORTC=0b00001111;
 	i=0;
 	sei();
@@ -120,48 +120,10 @@ int main(void)
 	{
 		for (i=0;i<1000000;i++)
 		{
-			while (butstatus==0)
-			{
-				
-						if (!(PINB&0b01000000))
-						{
-							if (buttondeb<5)
-							{
-								buttondeb++;
-							}
-							else
-							{
-								
-								i=0;
-								butstatus=1;
-								
-							}
-							
-						}
-						else
-						{
-							if (buttondeb>0)
-							{
-								buttondeb--;
-							}
-							else
-							{
-								
-								butstatus=1;
-								
-							}
-						}
-				
-			}
 			ledprint(i);
 			_delay_ms(1000);
 			butstatus=0;
 		}
-		
 
-	
-	
-	
-	
  	}
 }
