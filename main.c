@@ -101,9 +101,6 @@ void ledprint(unsigned int number)
 
 int main(void)
 {
-
-	
-	unsigned char buttondeb=0, butstatus=0;
 	
 	timer_ini(); 
 	
@@ -122,7 +119,6 @@ int main(void)
 		{
 			ledprint(i);
 			_delay_ms(1000);
-			butstatus=0;
 		}
 
  	}

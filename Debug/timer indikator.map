@@ -483,15 +483,15 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x70a
+.debug_info     0x00000000      0x6f2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_info    0x0000048c      0x27e main.o
+ .debug_info    0x0000048c      0x266 main.o
 
-.debug_abbrev   0x00000000      0x5b4
+.debug_abbrev   0x00000000      0x5a5
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_abbrev  0x0000044e      0x166 main.o
+ .debug_abbrev  0x0000044e      0x157 main.o
 
 .debug_line     0x00000000      0x393
  *(.debug_line .debug_line.* .debug_line_end)
@@ -502,11 +502,11 @@ END GROUP
  *(.debug_frame)
  .debug_frame   0x00000000       0xac main.o
 
-.debug_str      0x00000000      0x356
+.debug_str      0x00000000      0x342
  *(.debug_str)
  .debug_str     0x00000000      0x17a P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_str     0x0000017a      0x1dc main.o
-                                0x210 (size before relaxing)
+ .debug_str     0x0000017a      0x1c8 main.o
+                                0x1fc (size before relaxing)
 
 .debug_loc      0x00000000      0x234
  *(.debug_loc)
