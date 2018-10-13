@@ -8,8 +8,9 @@
 // 8   7   6   5   4   3   2   1
 // A | B | C | D | E | F | G | DP | Ob
 
+//-----------------------------------------//
 
-#define F_CPU 1000000UL
+#define F_CPU 8000000UL
 
 #define Zero 0b00000000
 #define One 0b00000001
@@ -22,12 +23,27 @@
 #define Eight 0b00001000
 #define Nine 0b00001001
 
+//-----------------------------------------//
+
 #include <avr/io.h>
+#include <stdio.h>
+#include <avr/delay.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
+#include "Libraries/main_init.h"
+#include "Libraries/i2c.h"
+#include "Libraries/ds3231.h"
+#include "libraries/bcd.h"
+
+
 //-----------------------------------------//
 unsigned int i;
 unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
+//настройка ебанных переменных и всякой хуйни для часов и вывода данных
+unsigned char time[3] = {0};
+//char string[20] = {0};
+unsigned char data[4] = {0};
+unsigned char time_alarm1[2] = {0};
+unsigned char time_alarm2[2] = {0};
 //-----------------------------------------//
 
 void segchar (unsigned char seg)
@@ -58,14 +74,47 @@ void timer_ini(void)
 	TIMSK |= (1<<OCIE1A);          // Установка бита прерывания 1 счетчика по свопадению с OCR1A (H L)
 	//0000111101000010
 	//111001001101111000
-	OCR1AH = 0b00001111;       // - старшие биты - Записываем число для сравнения 16 бит + нижняя строчка
-	OCR1AL = 0b01000010;       // - младшие биты - F_CPU/256=3906 , в бинарном формате - 00001111-01000010    11110100 0010010
+	OCR1AH = 0b11110100;       // - старшие биты - Записываем число для сравнения 16 бит + нижняя строчка
+	OCR1AL = 0b00010010;       // - младшие биты - F_CPU/256=3906 , в бинарном формате - 00001111-01000010    11110100 0010010       
 	TCCR1B |= (1<<CS10);              //  Устанавливаем делитель 256    - 1 000 000 / 3906 = 256
 	
 	}
 	
 //-----------------------------------------//
 
+//преобразование всей этой зверской хуеты
+//-------------------------------------------------------------------------
+unsigned char bcd (unsigned char data_bc)
+{
+	unsigned char bc;
+
+	bc=((((data_bc&(1<<6))|(data_bc&(1<<5))|(data_bc&(1<<4)))*0x0A)>>4)+((data_bc&(1<<3))|(data_bc&(1<<2))|(data_bc&(1<<1))|(data_bc&0x01));
+
+	return bc;
+}
+
+unsigned char bin(unsigned char dec)
+{
+
+	char bcd;
+
+	char n1, dig1, num1, count1;
+
+	num1 = dec;
+	count1 = 0;
+	bcd = 0;
+	for (n1=0; n1<4; n1++)
+	{
+		dig1 = num1%10;
+		num1 = num1/10;
+		bcd = (dig1<<count1)|bcd;
+		count1 += 4;
+	}
+
+	return bcd;
+}
+
+//-------------------------------------------------------------------------
 
 //-----------------------------------------//
 
@@ -113,14 +162,21 @@ int main(void)
 	i=0;
 	sei();
 	
+
+	_delay_us(15);
+	ds3231_init();
+	_delay_us(15);
+	
 	
 	while (1)
 	{
-		for (i=0;i<1000000;i++)
-		{
-			ledprint(i);
-			_delay_ms(1000);
-		}
+		ds3231_read_time(time);
+		ledprint( time);
+// 		for (i=0;i<1000000;i++)
+// 		{
+// 			ledprint(time[1]);
+// 			_delay_ms(1000);
+// 		}
 
  	}
 }
