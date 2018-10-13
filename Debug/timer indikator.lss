@@ -204,7 +204,7 @@ ISR (TIMER1_COMPA_vect)
   ea:	ff 93       	push	r31
   ec:	d1 e0       	ldi	r29, 0x01	; 1
   ee:	c0 e0       	ldi	r28, 0x00	; 0
-	for (uint8_t n_digit=0; n_digit<5; n_digit++)
+	for (uint8_t n_digit=0; n_digit<9; n_digit++)
 	{	
 		PORTB|=(1<<n_digit);
   f0:	01 e0       	ldi	r16, 0x01	; 1
@@ -241,8 +241,8 @@ ISR (TIMER1_COMPA_vect)
 
 ISR (TIMER1_COMPA_vect)
 {
-	for (uint8_t n_digit=0; n_digit<5; n_digit++)
- 126:	d5 30       	cpi	r29, 0x05	; 5
+	for (uint8_t n_digit=0; n_digit<9; n_digit++)
+ 126:	d9 30       	cpi	r29, 0x09	; 9
  128:	30 f3       	brcs	.-52     	; 0xf6 <__vector_6+0x34>
  12a:	08 c0       	rjmp	.+16     	; 0x13c <__vector_6+0x7a>
 	{	

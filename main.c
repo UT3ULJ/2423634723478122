@@ -75,7 +75,7 @@ unsigned char n_count=0;
 
 ISR (TIMER1_COMPA_vect)
 {
-	for (uint8_t n_digit=0; n_digit<5; n_digit++)
+	for (uint8_t n_digit=0; n_digit<9; n_digit++)
 	{	
 		PORTB|=(1<<n_digit);
 		PORTB&=~(1<<!n_digit);
