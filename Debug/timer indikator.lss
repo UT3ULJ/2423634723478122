@@ -19,15 +19,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 000005a5  00000000  00000000  00000c12  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000393  00000000  00000000  000011b7  2**0
+  8 .debug_line   0000039b  00000000  00000000  000011b7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000ac  00000000  00000000  0000154c  2**2
+  9 .debug_frame  000000ac  00000000  00000000  00001554  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000342  00000000  00000000  000015f8  2**0
+ 10 .debug_str    00000342  00000000  00000000  00001600  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000234  00000000  00000000  0000193a  2**0
+ 11 .debug_loc    00000234  00000000  00000000  00001942  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000030  00000000  00000000  00001b6e  2**0
+ 12 .debug_ranges 00000030  00000000  00000000  00001b76  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -202,7 +202,7 @@ ISR (TIMER1_COMPA_vect)
 	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
   e4:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
   e8:	81 11       	cpse	r24, r1
-  ea:	16 c0       	rjmp	.+44     	; 0x118 <__vector_6+0x56>
+  ea:	09 c0       	rjmp	.+18     	; 0xfe <__vector_6+0x3c>
   ec:	a8 98       	cbi	0x15, 0	; 21
   ee:	a9 98       	cbi	0x15, 1	; 21
   f0:	aa 98       	cbi	0x15, 2	; 21
@@ -211,10 +211,10 @@ ISR (TIMER1_COMPA_vect)
   f6:	c1 9a       	sbi	0x18, 1	; 24
   f8:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <R1>
   fc:	af df       	rcall	.-162    	; 0x5c <segchar>
-	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
+	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
   fe:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
- 102:	81 11       	cpse	r24, r1
- 104:	09 c0       	rjmp	.+18     	; 0x118 <__vector_6+0x56>
+ 102:	81 30       	cpi	r24, 0x01	; 1
+ 104:	49 f4       	brne	.+18     	; 0x118 <__vector_6+0x56>
  106:	a8 98       	cbi	0x15, 0	; 21
  108:	a9 98       	cbi	0x15, 1	; 21
  10a:	aa 98       	cbi	0x15, 2	; 21
@@ -223,9 +223,9 @@ ISR (TIMER1_COMPA_vect)
  110:	c0 9a       	sbi	0x18, 0	; 24
  112:	80 91 65 00 	lds	r24, 0x0065	; 0x800065 <R2>
  116:	a2 df       	rcall	.-188    	; 0x5c <segchar>
-	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
+	if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
  118:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
- 11c:	81 30       	cpi	r24, 0x01	; 1
+ 11c:	82 30       	cpi	r24, 0x02	; 2
  11e:	49 f4       	brne	.+18     	; 0x132 <__vector_6+0x70>
  120:	a8 98       	cbi	0x15, 0	; 21
  122:	a9 98       	cbi	0x15, 1	; 21
@@ -235,9 +235,9 @@ ISR (TIMER1_COMPA_vect)
  12a:	ab 9a       	sbi	0x15, 3	; 21
  12c:	80 91 64 00 	lds	r24, 0x0064	; 0x800064 <R3>
  130:	95 df       	rcall	.-214    	; 0x5c <segchar>
-	if (n_count==2)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
+	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
  132:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
- 136:	82 30       	cpi	r24, 0x02	; 2
+ 136:	83 30       	cpi	r24, 0x03	; 3
  138:	49 f4       	brne	.+18     	; 0x14c <__vector_6+0x8a>
  13a:	a8 98       	cbi	0x15, 0	; 21
  13c:	a9 98       	cbi	0x15, 1	; 21
@@ -247,9 +247,9 @@ ISR (TIMER1_COMPA_vect)
  144:	aa 9a       	sbi	0x15, 2	; 21
  146:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <R4>
  14a:	88 df       	rcall	.-240    	; 0x5c <segchar>
-	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
+	if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
  14c:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
- 150:	83 30       	cpi	r24, 0x03	; 3
+ 150:	84 30       	cpi	r24, 0x04	; 4
  152:	49 f4       	brne	.+18     	; 0x166 <__vector_6+0xa4>
  154:	a8 98       	cbi	0x15, 0	; 21
  156:	aa 98       	cbi	0x15, 2	; 21
@@ -259,9 +259,9 @@ ISR (TIMER1_COMPA_vect)
  15e:	a9 9a       	sbi	0x15, 1	; 21
  160:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <R5>
  164:	7b df       	rcall	.-266    	; 0x5c <segchar>
-	if (n_count==4)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
+	if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
  166:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
- 16a:	84 30       	cpi	r24, 0x04	; 4
+ 16a:	85 30       	cpi	r24, 0x05	; 5
  16c:	49 f4       	brne	.+18     	; 0x180 <__vector_6+0xbe>
  16e:	a9 98       	cbi	0x15, 1	; 21
  170:	aa 98       	cbi	0x15, 2	; 21
@@ -277,11 +277,11 @@ ISR (TIMER1_COMPA_vect)
 	if (n_count>5) n_count=0;
  186:	86 30       	cpi	r24, 0x06	; 6
  188:	18 f4       	brcc	.+6      	; 0x190 <__vector_6+0xce>
-	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
-	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
-	if (n_count==2)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
-	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
-	if (n_count==4)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
+	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
+	if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
+	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
+	if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
+	if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
 	n_count++;
  18a:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
  18e:	02 c0       	rjmp	.+4      	; 0x194 <__vector_6+0xd2>
@@ -517,6 +517,7 @@ int main(void)
 	sei();
  32e:	78 94       	sei
 	
+	
 	while (1)
 	{
 		for (i=0;i<1000000;i++)
@@ -542,8 +543,8 @@ int main(void)
  34e:	e1 f7       	brne	.-8      	; 0x348 <main+0x36>
  350:	00 c0       	rjmp	.+0      	; 0x352 <main+0x40>
  352:	00 00       	nop
-	i=0;
 	sei();
+	
 	
 	while (1)
 	{
