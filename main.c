@@ -170,13 +170,13 @@ int main(void)
 	
 	while (1)
 	{
-		ds3231_read_time(time);
-		ledprint( time);
-// 		for (i=0;i<1000000;i++)
-// 		{
-// 			ledprint(time[1]);
-// 			_delay_ms(1000);
-// 		}
+/*		ds3231_read_time(time);*/
+/*		ledprint();*/
+		for (i=0;i<1000000;i++)
+		{
+			ledprint(i);
+			_delay_ms(1000);
+		}
 
  	}
 }
