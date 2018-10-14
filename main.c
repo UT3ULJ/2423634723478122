@@ -36,7 +36,7 @@
 
 
 //-----------------------------------------//
-unsigned int i;
+unsigned long i;
 unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
 //настройка ебанных переменных и всякой хуйни для часов и вывода данных
 unsigned char time[3] = {0};
@@ -137,14 +137,14 @@ ISR (TIMER1_COMPA_vect)
 }
 
 
-void ledprint(unsigned int number)
+void ledprint(unsigned long number)
 {	
 	cli();
 	R1 = number%10;
 	R2 = number%100/10;
 	R3 = number%1000/100;
 	R4 = number%10000/1000;
-	R5 = number%10000/10000;
+	R5 = number%100000/10000;
 	R6 = number/100000;
 	sei();
 }
@@ -175,10 +175,10 @@ int main(void)
 	{
 /*		ds3231_read_time(time);*/
 /*		ledprint();*/
-		for (i=0;i<10000;i++)
+		for (i=0;i<1000000;i++)
 		{
-			ledprint(12345);
-			_delay_ms(1000);
+			ledprint(i);
+			_delay_ms(1);
 		}
 
  	}
