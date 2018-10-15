@@ -17,7 +17,7 @@ main.d main.o: .././main.c \
  p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././main_init.h \
+ .././Libraries/main_init.h \
  p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\axlib\type_var.h \
  .././Libraries/i2c.h .././Libraries/ds3231.h \
  p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\axlib\i2c.h \
@@ -59,7 +59,7 @@ p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
 
 p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
-.././main_init.h:
+.././Libraries/main_init.h:
 
 p:\atmel\ studio\ 7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\axlib\type_var.h:
 

@@ -29,7 +29,7 @@
 #include <stdio.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-#include "main_init.h"
+#include "Libraries/main_init.h"
 #include "Libraries/i2c.h"
 #include "Libraries/ds3231.h"
 #include "libraries/bcd.h"
@@ -137,15 +137,23 @@ ISR (TIMER1_COMPA_vect)
 }
 
 
-void ledprint(unsigned long number)
+void ledprint(unsigned char *number)
 {	
 	cli();
-	R1 = number%10;
-	R2 = number%100/10;
-	R3 = number%1000/100;
-	R4 = number%10000/1000;
-	R5 = number%100000/10000;
-	R6 = number/100000;
+	R5 = *number%10;
+	R6 = *number/10;
+	number++;
+	R3 = *number%10;
+	R4 = *number/10;
+	number++;
+	R1 = *number%10;
+	R2 = *number/10;
+	
+	
+	
+	
+	
+	
 	sei();
 }
 //-----------------------------------------//
@@ -165,15 +173,19 @@ int main(void)
 	PORTB=0b00001111;
 	PORTC=0b00001111;
 	sei();
-		
+	
+
+
+	//ds3231_write_time(DS3231_24, 15,02,00);
+	
 	while (1)
 	{
-/*		ds3231_read_time(time);*/
-/*		ledprint();*/
-		//for (i=0;i<1000000;i++)
+
 		{
-			ledprint(123456);
-			//_delay_ms(1000);
+			ds3231_read_time(time);
+			ledprint(time);
+
 		}
+
  	}
 }
