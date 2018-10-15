@@ -39,12 +39,12 @@
 unsigned long i;
 unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
 //настройка ебанных переменных и всякой хуйни для часов и вывода данных
-unsigned char time[3] = {0};
-//char string[20] = {0};
-unsigned char data[4] = {0};
-unsigned char time_alarm1[2] = {0};
-unsigned char time_alarm2[2] = {0};
-//-----------------------------------------//
+// unsigned char time[3] = {0};
+// //char string[20] = {0};
+// unsigned char data[4] = {0};
+// unsigned char time_alarm1[2] = {0};
+// unsigned char time_alarm2[2] = {0};
+// //-----------------------------------------//
 
 void segchar (unsigned char seg)
 {
@@ -84,35 +84,35 @@ void timer_ini(void)
 
 //преобразование всей этой зверской хуеты
 //-------------------------------------------------------------------------
-unsigned char bcd (unsigned char data_bc)
-{
-	unsigned char bc;
-
-	bc=((((data_bc&(1<<6))|(data_bc&(1<<5))|(data_bc&(1<<4)))*0x0A)>>4)+((data_bc&(1<<3))|(data_bc&(1<<2))|(data_bc&(1<<1))|(data_bc&0x01));
-
-	return bc;
-}
-
-unsigned char bin(unsigned char dec)
-{
-
-	char bcd;
-
-	char n1, dig1, num1, count1;
-
-	num1 = dec;
-	count1 = 0;
-	bcd = 0;
-	for (n1=0; n1<4; n1++)
-	{
-		dig1 = num1%10;
-		num1 = num1/10;
-		bcd = (dig1<<count1)|bcd;
-		count1 += 4;
-	}
-
-	return bcd;
-}
+// unsigned char bcd (unsigned char data_bc)
+// {
+// 	unsigned char bc;
+// 
+// 	bc=((((data_bc&(1<<6))|(data_bc&(1<<5))|(data_bc&(1<<4)))*0x0A)>>4)+((data_bc&(1<<3))|(data_bc&(1<<2))|(data_bc&(1<<1))|(data_bc&0x01));
+// 
+// 	return bc;
+// }
+// 
+// unsigned char bin(unsigned char dec)
+// {
+// 
+// 	char bcd;
+// 
+// 	char n1, dig1, num1, count1;
+// 
+// 	num1 = dec;
+// 	count1 = 0;
+// 	bcd = 0;
+// 	for (n1=0; n1<4; n1++)
+// 	{
+// 		dig1 = num1%10;
+// 		num1 = num1/10;
+// 		bcd = (dig1<<count1)|bcd;
+// 		count1 += 4;
+// 	}
+// 
+// 	return bcd;
+// }
 
 //-------------------------------------------------------------------------
 
@@ -123,18 +123,18 @@ unsigned char n_count=0;
 
 //-----------------------------------------//
 
-ISR (TIMER1_COMPA_vect)
-{
-	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
-	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
-	if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
-	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
-	if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
-	if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
-	n_count++;
-	if (n_count>5) n_count=0;
-	
-}
+// ISR (TIMER1_COMPA_vect)
+// {
+// 	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
+// 	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
+// 	if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
+// 	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
+// 	if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
+// 	if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
+// 	n_count++;
+// 	if (n_count>5) n_count=0;
+// 	
+// }
 
 
 void ledprint(unsigned long number)
@@ -154,9 +154,9 @@ int main(void)
 {
 	
 	timer_ini(); 
-	_delay_us(15);
-	ds3231_init();
-	_delay_us(15);
+// 	_delay_us(15);
+// 	ds3231_init();
+// 	_delay_us(15);
 	
 	DDRD=0xFF;
 	DDRB=0b00001111;
@@ -164,7 +164,6 @@ int main(void)
 	PORTD=0b00000000;
 	PORTB=0b00001111;
 	PORTC=0b00001111;
-	i=0;
 	sei();
 	
 
@@ -173,12 +172,21 @@ int main(void)
 	
 	while (1)
 	{
+
 /*		ds3231_read_time(time);*/
 /*		ledprint();*/
-		for (i=0;i<1000000;i++)
+		for (i=0;i<100000;i++)
 		{
 			ledprint(i);
-			_delay_ms(1);
+			_delay_ms(1000);
+			if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
+			if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
+			if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
+			if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
+			if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
+			if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
+			n_count++;
+			if (n_count>5) n_count=0;
 		}
 
  	}
