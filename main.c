@@ -27,9 +27,9 @@
 
 #include <avr/io.h>
 #include <stdio.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <avr/interrupt.h>
-#include "Libraries/main_init.h"
+#include "main_init.h"
 #include "Libraries/i2c.h"
 #include "Libraries/ds3231.h"
 #include "libraries/bcd.h"
@@ -165,11 +165,7 @@ int main(void)
 	PORTB=0b00001111;
 	PORTC=0b00001111;
 	sei();
-	
-
-
-	
-	
+		
 	while (1)
 	{
 /*		ds3231_read_time(time);*/
@@ -179,6 +175,5 @@ int main(void)
 			ledprint(123456);
 			//_delay_ms(1000);
 		}
-
  	}
 }
