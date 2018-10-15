@@ -36,8 +36,8 @@
 
 
 //-----------------------------------------//
-unsigned long i;
-unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
+// unsigned long i;
+// unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
 //настройка ебанных переменных и всякой хуйни для часов и вывода данных
 // unsigned char time[3] = {0};
 // //char string[20] = {0};
@@ -46,24 +46,24 @@ unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
 // unsigned char time_alarm2[2] = {0};
 // //-----------------------------------------//
 
-void segchar (unsigned char seg)
-{
-	switch(seg)
-	{
-		
-		case 0: PORTD = Zero; break;
-		case 1: PORTD = One; break;
-		case 2: PORTD = Two; break;
-		case 3: PORTD = Three; break;
-		case 4: PORTD = Four; break;
-		case 5: PORTD = Five; break;
-		case 6: PORTD = Six; break;
-		case 7: PORTD = Seven; break;
-		case 8: PORTD = Eight; break;
-		case 9: PORTD = Nine; break;
-		
-	}
-}
+// void segchar (unsigned char seg)
+// {
+// 	switch(seg)
+// 	{
+// 		
+// 		case 0: PORTD = Zero; break;
+// 		case 1: PORTD = One; break;
+// 		case 2: PORTD = Two; break;
+// 		case 3: PORTD = Three; break;
+// 		case 4: PORTD = Four; break;
+// 		case 5: PORTD = Five; break;
+// 		case 6: PORTD = Six; break;
+// 		case 7: PORTD = Seven; break;
+// 		case 8: PORTD = Eight; break;
+// 		case 9: PORTD = Nine; break;
+// 		
+// 	}
+// }
 
 //-----------------------------------------//
 
@@ -137,17 +137,17 @@ unsigned char n_count=0;
 // }
 
 
-void ledprint(unsigned long number)
-{	
-	cli();
-	R1 = number%10;
-	R2 = number%100/10;
-	R3 = number%1000/100;
-	R4 = number%10000/1000;
-	R5 = number%100000/10000;
-	R6 = number/100000;
-	sei();
-}
+// void ledprint(unsigned long number)
+// {	
+// 	cli();
+// 	R1 = number%10;
+// 	R2 = number%100/10;
+// 	R3 = number%1000/100;
+// 	R4 = number%10000/1000;
+// 	R5 = number%100000/10000;
+// 	R6 = number/100000;
+// 	sei();
+// }
 //-----------------------------------------//
 
 int main(void)
@@ -172,19 +172,20 @@ int main(void)
 	
 	while (1)
 	{
-
+		/*ledprint(123456);*/
 /*		ds3231_read_time(time);*/
 /*		ledprint();*/
-		for (i=0;i<100000;i++)
+		
+/*		for (i=0;i<5;i++)*/
 		{
-			ledprint(i);
-			_delay_ms(1000);
-			if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
-			if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
-			if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
-			if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
-			if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
-			if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
+
+/*			_delay_ms(1000);*/
+			if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); PORTD=One;}
+			if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); PORTD=Two;}
+			if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); PORTD=Three;}
+			if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); PORTD=Five;}
+			if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); PORTD=Six;}
+			if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); PORTD=Seven;}
 			n_count++;
 			if (n_count>5) n_count=0;
 		}
