@@ -36,83 +36,83 @@
 
 
 //-----------------------------------------//
-// unsigned long i;
-// unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
-//настройка ебанных переменных и всякой хуйни для часов и вывода данных
-// unsigned char time[3] = {0};
-// //char string[20] = {0};
-// unsigned char data[4] = {0};
-// unsigned char time_alarm1[2] = {0};
-// unsigned char time_alarm2[2] = {0};
-// //-----------------------------------------//
+unsigned long i;
+unsigned char R1=0, R2=0, R3=0, R4=0, R5=0, R6=0;
+//????????? ??????? ?????????? ? ?????? ????? ??? ????? ? ?????? ??????
+unsigned char time[3] = {0};
+//char string[20] = {0};
+unsigned char data[4] = {0};
+unsigned char time_alarm1[2] = {0};
+unsigned char time_alarm2[2] = {0};
+//-----------------------------------------//
 
-// void segchar (unsigned char seg)
-// {
-// 	switch(seg)
-// 	{
-// 		
-// 		case 0: PORTD = Zero; break;
-// 		case 1: PORTD = One; break;
-// 		case 2: PORTD = Two; break;
-// 		case 3: PORTD = Three; break;
-// 		case 4: PORTD = Four; break;
-// 		case 5: PORTD = Five; break;
-// 		case 6: PORTD = Six; break;
-// 		case 7: PORTD = Seven; break;
-// 		case 8: PORTD = Eight; break;
-// 		case 9: PORTD = Nine; break;
-// 		
-// 	}
-// }
+void segchar (unsigned char seg)
+{
+	switch(seg)
+	{
+		
+		case 0: PORTD = Zero; break;
+		case 1: PORTD = One; break;
+		case 2: PORTD = Two; break;
+		case 3: PORTD = Three; break;
+		case 4: PORTD = Four; break;
+		case 5: PORTD = Five; break;
+		case 6: PORTD = Six; break;
+		case 7: PORTD = Seven; break;
+		case 8: PORTD = Eight; break;
+		case 9: PORTD = Nine; break;
+		
+	}
+}
 
 //-----------------------------------------//
 
-// void timer_ini(void) 
-// 	{
-// 	
-// 	TCCR1B |= (1<<WGM12);        // Установка режима СТС - сброс по совпадению
-// 	TIMSK |= (1<<OCIE1A);          // Установка бита прерывания 1 счетчика по свопадению с OCR1A (H L)
-// 	//0000111101000010
-// 	//111001001101111000
-// 	OCR1AH = 0b01111010;       // - старшие биты - Записываем число для сравнения 16 бит + нижняя строчка
-// 	OCR1AL = 0b00010010;       // - младшие биты - F_CPU/256=3906 , в бинарном формате - 00001111-01000010    11110100 0010010        01111010 00010010
-// 	TCCR1B |= (1<<CS10);              //  Устанавливаем делитель 256    - 1 000 000 / 3906 = 256
-// 	
-// 	}
+void timer_ini(void) 
+	{
+	
+	TCCR1B |= (1<<WGM12);        // ????????? ?????? ??? - ????? ?? ??????????
+	TIMSK |= (1<<OCIE1A);          // ????????? ???? ?????????? 1 ???????? ?? ?????????? ? OCR1A (H L)
+	//0000111101000010
+	//111001001101111000
+	OCR1AH = 0b01111010;       // - ??????? ???? - ?????????? ????? ??? ????????? 16 ??? + ?????? ???????
+	OCR1AL = 0b00010010;       // - ??????? ???? - F_CPU/256=3906 , ? ???????? ??????? - 00001111-01000010    11110100 0010010        01111010 00010010
+	TCCR1B |= (1<<CS10);              //  ????????????? ???????? 256    - 1 000 000 / 3906 = 256
+	
+	}
 	
 //-----------------------------------------//
 
-//преобразование всей этой зверской хуеты
+//?????????????? ???? ???? ???????? ?????
 //-------------------------------------------------------------------------
-// unsigned char bcd (unsigned char data_bc)
-// {
-// 	unsigned char bc;
-// 
-// 	bc=((((data_bc&(1<<6))|(data_bc&(1<<5))|(data_bc&(1<<4)))*0x0A)>>4)+((data_bc&(1<<3))|(data_bc&(1<<2))|(data_bc&(1<<1))|(data_bc&0x01));
-// 
-// 	return bc;
-// }
-// 
-// unsigned char bin(unsigned char dec)
-// {
-// 
-// 	char bcd;
-// 
-// 	char n1, dig1, num1, count1;
-// 
-// 	num1 = dec;
-// 	count1 = 0;
-// 	bcd = 0;
-// 	for (n1=0; n1<4; n1++)
-// 	{
-// 		dig1 = num1%10;
-// 		num1 = num1/10;
-// 		bcd = (dig1<<count1)|bcd;
-// 		count1 += 4;
-// 	}
-// 
-// 	return bcd;
-// }
+unsigned char bcd (unsigned char data_bc)
+{
+	unsigned char bc;
+
+	bc=((((data_bc&(1<<6))|(data_bc&(1<<5))|(data_bc&(1<<4)))*0x0A)>>4)+((data_bc&(1<<3))|(data_bc&(1<<2))|(data_bc&(1<<1))|(data_bc&0x01));
+
+	return bc;
+}
+
+unsigned char bin(unsigned char dec)
+{
+
+	char bcd;
+
+	char n1, dig1, num1, count1;
+
+	num1 = dec;
+	count1 = 0;
+	bcd = 0;
+	for (n1=0; n1<4; n1++)
+	{
+		dig1 = num1%10;
+		num1 = num1/10;
+		bcd = (dig1<<count1)|bcd;
+		count1 += 4;
+	}
+
+	return bcd;
+}
 
 //-------------------------------------------------------------------------
 
@@ -123,48 +123,48 @@ unsigned char n_count=0;
 
 //-----------------------------------------//
 
-// ISR (TIMER1_COMPA_vect)
-// {
-// 	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
-// 	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
-// 	if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
-// 	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
-// 	if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
-// 	if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
-// 	n_count++;
-// 	if (n_count>5) n_count=0;
-// 	
-// }
+ISR (TIMER1_COMPA_vect)
+{
+	if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); segchar(R1);}
+	if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); segchar(R2);}
+	if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); segchar(R3);}
+	if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); segchar(R4);}
+	if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); segchar(R5);}
+	if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); segchar(R6);}
+	n_count++;
+	if (n_count>5) n_count=0;
+	
+}
 
 
-// void ledprint(unsigned long number)
-// {	
-// 	cli();
-// 	R1 = number%10;
-// 	R2 = number%100/10;
-// 	R3 = number%1000/100;
-// 	R4 = number%10000/1000;
-// 	R5 = number%100000/10000;
-// 	R6 = number/100000;
-// 	sei();
-// }
+void ledprint(unsigned long number)
+{	
+	cli();
+	R1 = number%10;
+	R2 = number%100/10;
+	R3 = number%1000/100;
+	R4 = number%10000/1000;
+	R5 = number%100000/10000;
+	R6 = number/100000;
+	sei();
+}
 //-----------------------------------------//
 
 int main(void)
 {
 	
-/*	timer_ini(); */
-// 	_delay_us(15);
-// 	ds3231_init();
-// 	_delay_us(15);
+	timer_ini(); 
+	_delay_us(15);
+	ds3231_init();
+	_delay_us(15);
 	
 	DDRD=0xFF;
 	DDRB=0b00001111;
 	DDRC=0b00011111;
 	PORTD=0b00000000;
 	PORTB=0b00001111;
-	PORTC=0b01001111;
-	cli();
+	PORTC=0b00001111;
+	sei();
 	
 
 
@@ -172,29 +172,13 @@ int main(void)
 	
 	while (1)
 	{
-		/*ledprint(123456);*/
 /*		ds3231_read_time(time);*/
 /*		ledprint();*/
-		
-/*		for (i=0;i<5;i++)*/
-		
-
-/*			_delay_ms(1000);*/
-			if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); PORTD=One;}
-			_delay_us(500);
-			if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); PORTD=Two;}
-			_delay_us(500);
-			if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); PORTD=Three;}
-			_delay_us(500);
-			if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); PORTD=Four;}
-			_delay_us(500);
-			if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); PORTD=Five;}
-			_delay_us(500);
-			if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); PORTD=Six;}
-			_delay_us(500);
-			n_count++;
-			if (n_count>5) n_count=0;
-		
+		//for (i=0;i<1000000;i++)
+		{
+			ledprint(123456);
+			//_delay_ms(1000);
+		}
 
  	}
 }
