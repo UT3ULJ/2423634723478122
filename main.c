@@ -163,7 +163,7 @@ int main(void)
 	DDRC=0b00011111;
 	PORTD=0b00000000;
 	PORTB=0b00001111;
-	PORTC=0b00001111;
+	PORTC=0b01001111;
 	cli();
 	
 
@@ -177,18 +177,24 @@ int main(void)
 /*		ledprint();*/
 		
 /*		for (i=0;i<5;i++)*/
-		{
+		
 
 /*			_delay_ms(1000);*/
 			if (n_count==0) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB|=(1<<PORTB1); PORTD=One;}
+			_delay_us(500);
 			if (n_count==1) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB1);PORTB|=(1<<PORTB0); PORTD=Two;}
+			_delay_us(500);
 			if (n_count==2) {PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC3); PORTD=Three;}
-			if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); PORTD=Five;}
-			if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); PORTD=Six;}
-			if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); PORTD=Seven;}
+			_delay_us(500);
+			if (n_count==3)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC2); PORTD=Four;}
+			_delay_us(500);
+			if (n_count==4)	{PORTC&=~(1<<PORTC0);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC1); PORTD=Five;}
+			_delay_us(500);
+			if (n_count==5)	{PORTC&=~(1<<PORTC1);PORTC&=~(1<<PORTC2);PORTC&=~(1<<PORTC3);PORTB&=~(1<<PORTB0);PORTB&=~(1<<PORTB1);PORTC|=(1<<PORTC0); PORTD=Six;}
+			_delay_us(500);
 			n_count++;
 			if (n_count>5) n_count=0;
-		}
+		
 
  	}
 }
