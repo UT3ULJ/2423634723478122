@@ -12,16 +12,25 @@
 
 #define F_CPU 8000000UL
 
-#define Zero 0b00000000
-#define One 0b00000001
-#define Two 0b00000010
-#define Three 0b00000011
-#define Four 0b00000100
-#define Five 0b00000101
-#define Six 0b00000110
-#define Seven 0b00000111
-#define Eight 0b00001000
-#define Nine 0b00001001
+#define zero PORTB&=0b11110000
+#define one zero; /
+					PORTB|=0b00000001
+#define two zero; /
+					PORTB|=0b00000010
+#define three zero; /
+					PORTB|=0b00000011
+#define four zero; /
+					PORTB|=0b00000100
+#define five zero; /
+					PORTB|=0b00000101
+#define six zero; /
+					PORTB|=0b00000110
+#define seven zero; /
+					PORTB|=0b00000111
+#define eight zero; /
+					PORTB|=0b00001000
+#define nine zero; /
+					PORTB|=0b00001001
 
 //-----------------------------------------//
 
@@ -50,16 +59,16 @@ void segchar (unsigned char seg)
 	switch(seg)
 	{
 		
-		case 0: PORTD = Zero; break;
-		case 1: PORTD = One; break;
-		case 2: PORTD = Two; break;
-		case 3: PORTD = Three; break;
-		case 4: PORTD = Four; break;
-		case 5: PORTD = Five; break;
-		case 6: PORTD = Six; break;
-		case 7: PORTD = Seven; break;
-		case 8: PORTD = Eight; break;
-		case 9: PORTD = Nine; break;
+		case 0: Zero; break;
+		case 1: One; break;
+		case 2: Two; break;
+		case 3: Three; break;
+		case 4: Four; break;
+		case 5: Five; break;
+		case 6: Six; break;
+		case 7: Seven; break;
+		case 8: Eight; break;
+		case 9: Nine; break;
 		
 	}
 }
