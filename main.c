@@ -13,30 +13,30 @@
 #define F_CPU 8000000UL
 
 #define set_zero PORTB&=0b11110000
-#define set_one set_zero; /
+#define set_one set_zero;   \
 				PORTB|=0b00000001
-#define set_two set_zero; /
+#define set_two set_zero;   \
 				PORTB|=0b00000010
-#define set_three set_zero; /
+#define set_three set_zero; \
 				PORTB|=0b00000011
-#define set_four set_zero; /
+#define set_four set_zero;  \
 				PORTB|=0b00000100
-#define set_five set_zero; /
+#define set_five set_zero;  \
 				PORTB|=0b00000101
-#define set_six set_zero; /
+#define set_six set_zero;   \
 				PORTB|=0b00000110
-#define set_seven set_zero; /
+#define set_seven set_zero; \
 				PORTB|=0b00000111
-#define set_eight set_zero; /
+#define set_eight set_zero; \
 				PORTB|=0b00001000
-#define set_nine set_zero; /
+#define set_nine set_zero;  \
 				PORTB|=0b00001001
 
 //-----------------------------------------//
 
 #include <avr/io.h>
 #include <stdio.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <avr/interrupt.h>
 #include "Libraries/main_init.h"
 #include "Libraries/i2c.h"
