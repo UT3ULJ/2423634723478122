@@ -12,25 +12,25 @@
 
 #define F_CPU 8000000UL
 
-#define zero PORTB&=0b11110000
-#define one zero; /
-					PORTB|=0b00000001
-#define two zero; /
-					PORTB|=0b00000010
-#define three zero; /
-					PORTB|=0b00000011
-#define four zero; /
-					PORTB|=0b00000100
-#define five zero; /
-					PORTB|=0b00000101
-#define six zero; /
-					PORTB|=0b00000110
-#define seven zero; /
-					PORTB|=0b00000111
-#define eight zero; /
-					PORTB|=0b00001000
-#define nine zero; /
-					PORTB|=0b00001001
+#define zero PORTD&=0b11110000
+#define one zero; \
+					PORTD|=0b00000001
+#define two zero; \
+					PORTD|=0b00000010
+#define three zero; \
+					PORTD|=0b00000011
+#define four zero; \
+					PORTD|=0b00000100
+#define five zero; \
+					PORTD|=0b00000101
+#define six zero; \
+					PORTD|=0b00000110
+#define seven zero; \
+					PORTD|=0b00000111
+#define eight zero; \
+					PORTD|=0b00001000
+#define nine zero; \
+					PORTD|=0b00001001
 
 //-----------------------------------------//
 
@@ -59,16 +59,16 @@ void segchar (unsigned char seg)
 	switch(seg)
 	{
 		
-		case 0: Zero; break;
-		case 1: One; break;
-		case 2: Two; break;
-		case 3: Three; break;
-		case 4: Four; break;
-		case 5: Five; break;
-		case 6: Six; break;
-		case 7: Seven; break;
-		case 8: Eight; break;
-		case 9: Nine; break;
+		case 0: zero; break;
+		case 1: one; break;
+		case 2: two; break;
+		case 3: three; break;
+		case 4: four; break;
+		case 5: five; break;
+		case 6: six; break;
+		case 7: seven; break;
+		case 8: eight; break;
+		case 9: nine; break;
 		
 	}
 }
@@ -175,7 +175,7 @@ int main(void)
 	DDRB=0b00000011;
 	DDRC=0b00001111;
 	
-	PORTD=0b10000000;
+	PORTD=0b11000000;
 	PORTB=0b00000100;
 	PORTC=0b00000000;
 	
@@ -236,30 +236,7 @@ int main(void)
 // 				{
 // 					ds3231_read_time(time);
 // 				}
-// 				//-------------------------------------------------------------------------
-// 				//ебашим настройку секунд
-// 				
-// 				if (!(PIND&0b00000100))
-// 				{
-// 					ds3231_read_time(time);
-// 					if (time[2]>=59)
-// 					{
-// 						time[2]=0;
-// 					}
-// 					else
-// 					{
-// 						time[2]++;
-// 					}
-// 					unsigned char time0_1 [1]= {0};
-// 					time0_1 [0]=ds3231_byte(time [2]);
-// 					ds3231_write_reg(0x00 ,time0_1[0]);
-// 					_delay_ms(100);
-// 				}
-// 				
-// 				else
-// 				{
-// 					ds3231_read_time(time);
-// 				}
+
 //-------------------------------------------------------------------------
 	while (1)
 	{
@@ -269,44 +246,68 @@ int main(void)
 //Индикация			
 			ds3231_read_time(time);
 			ledprint(time);
-// //------------------------------------------------------------------------------------------------	
-// 			// Настройка часов
-// 			if (!(PINB&0b00000100))
-// 			 				{
-// 			 					ds3231_read_time(time);
-// 			 					if (time[0]>=23)
-// 			 					{
-// 			 						time[0]=0;
-// 			 					}
-// 			 					else
-// 			 					{
-// 			 						time[0]++;
-// 			 					}
-// 			 					unsigned char time0_1 [1]= {0};
-// 			 					time0_1 [0]=ds3231_byte(time [0]);
-// 			 					ds3231_write_reg(0x02 ,time0_1[0]);
-// 			 					_delay_ms(500);
-// 			 				}
-// 
-// //------------------------------------------------------------------------------------------------
-// 
-// // 				if (!(PIND&0b10000000))
-// // 				{
-// // 					ds3231_read_time(time);
-// // 					if (time[1]>=59)
-// // 					{
-// // 						time[1]=0;
-// // 					}
-// // 					else
-// // 					{
-// // 						time[1]++;
-// // 					}
-// // 					unsigned char time0_1 [1]= {0};
-// // 					time0_1 [0]=ds3231_byte(time [1]);
-// // 					ds3231_write_reg(0x01 ,time0_1[0]);
-// // 					_delay_ms(500);
-// // 				}							 
-// 							 
+//------------------------------------------------------------------------------------------------
+			// Настройка часов
+			if (!(PINB&0b00000100))
+			 				{
+			 					ds3231_read_time(time);
+			 					if (time[0]>=23)
+			 					{
+			 						time[0]=0;
+			 					}
+			 					else
+			 					{
+			 						time[0]++;
+			 					}
+			 					unsigned char time0_1 [1]= {0};
+			 					time0_1 [0]=ds3231_byte(time [0]);
+			 					ds3231_write_reg(0x02 ,time0_1[0]);
+			 					_delay_ms(500);
+			 				}
+
+//------------------------------------------------------------------------------------------------
+				//Настройка минут
+				if (!(PIND&0b10000000))
+				{
+					ds3231_read_time(time);
+					if (time[1]>=59)
+					{
+						time[1]=0;
+					}
+					else
+					{
+						time[1]++;
+					}
+					unsigned char time0_1 [1]= {0};
+					time0_1 [0]=ds3231_byte(time [1]);
+					ds3231_write_reg(0x01 ,time0_1[0]);
+					_delay_ms(500);
+				}							 
+					
+//------------------------------------------------------------------------------------------------
+				//настройка секунд
+				
+				if (!(PIND&0b01000000))
+				{
+					ds3231_read_time(time);
+					if (time[2]>=59)
+					{
+						time[2]=0;
+					}
+					else
+					{
+						time[2]++;
+					}
+					unsigned char time0_1 [1]= {0};
+					time0_1 [0]=ds3231_byte(time [2]);
+					ds3231_write_reg(0x00 ,time0_1[0]);
+					_delay_ms(100);
+				}
+				
+				else
+				{
+					ds3231_read_time(time);
+				}		 
 			}
 			
 		}

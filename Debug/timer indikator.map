@@ -12,12 +12,8 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .text.ds3231_write_reg
-                0x00000000       0x1e main.o
  .text.ds3231_read_reg
                 0x00000000       0x22 main.o
- .text.ds3231_byte
-                0x00000000       0x1e main.o
  .text.ds3231_write_time
                 0x00000000       0x64 main.o
  .text.ds3231_read_data
@@ -202,7 +198,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x584
+.text           0x00000000      0x628
  *(.vectors)
  .vectors       0x00000000       0x26 P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
                 0x00000000                __vector_default
@@ -302,27 +298,33 @@ END GROUP
  .text.ds3231_init
                 0x000001c6       0x34 main.o
                 0x000001c6                ds3231_init
+ .text.ds3231_write_reg
+                0x000001fa       0x1e main.o
+                0x000001fa                ds3231_write_reg
+ .text.ds3231_byte
+                0x00000218       0x1e main.o
+                0x00000218                ds3231_byte
  .text.ds3231_read_time
-                0x000001fa       0xe6 main.o
-                0x000001fa                ds3231_read_time
- .text.segchar  0x000002e0       0xda main.o
-                0x000002e0                segchar
+                0x00000236       0xe6 main.o
+                0x00000236                ds3231_read_time
+ .text.segchar  0x0000031c       0x86 main.o
+                0x0000031c                segchar
  .text.timer_ini
-                0x000003ba       0x1c main.o
-                0x000003ba                timer_ini
+                0x000003a2       0x1c main.o
+                0x000003a2                timer_ini
  .text.__vector_6
-                0x000003d6       0xf4 main.o
-                0x000003d6                __vector_6
+                0x000003be       0xf4 main.o
+                0x000003be                __vector_6
  .text.ledprint
-                0x000004ca       0x82 main.o
-                0x000004ca                ledprint
- .text.main     0x0000054c       0x34 main.o
-                0x0000054c                main
-                0x00000580                . = ALIGN (0x2)
+                0x000004b2       0x82 main.o
+                0x000004b2                ledprint
+ .text.main     0x00000534       0xf0 main.o
+                0x00000534                main
+                0x00000624                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000580        0x0 p:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000580                _exit
-                0x00000580                exit
+ .fini9         0x00000624        0x0 p:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000624                _exit
+                0x00000624                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -341,11 +343,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000580        0x4 p:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000624        0x4 p:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000584                _etext = .
+                0x00000628                _etext = .
 
-.data           0x00800060        0x0 load address 0x00000584
+.data           0x00800060        0x0 load address 0x00000628
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -379,8 +381,8 @@ END GROUP
                 0x00800069                R1
  *(COMMON)
                 0x0080006a                PROVIDE (__bss_end, .)
-                0x00000584                __data_load_start = LOADADDR (.data)
-                0x00000584                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000628                __data_load_start = LOADADDR (.data)
+                0x00000628                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080006a        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -459,34 +461,34 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x192f
+.debug_info     0x00000000     0x1b38
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_info    0x0000048c     0x14a3 main.o
+ .debug_info    0x0000048c     0x16ac main.o
 
-.debug_abbrev   0x00000000      0x711
+.debug_abbrev   0x00000000      0x74b
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_abbrev  0x0000044e      0x2c3 main.o
+ .debug_abbrev  0x0000044e      0x2fd main.o
 
-.debug_line     0x00000000      0xb69
+.debug_line     0x00000000      0xc08
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x109 P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_line    0x00000109      0xa60 main.o
+ .debug_line    0x00000109      0xaff main.o
 
 .debug_frame    0x00000000      0x2ec
  *(.debug_frame)
  .debug_frame   0x00000000      0x2ec main.o
 
-.debug_str      0x00000000      0x50d
+.debug_str      0x00000000      0x524
  *(.debug_str)
  .debug_str     0x00000000      0x17a P:/Atmel Studio 7/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
- .debug_str     0x0000017a      0x393 main.o
-                                0x3e6 (size before relaxing)
+ .debug_str     0x0000017a      0x3aa main.o
+                                0x3fd (size before relaxing)
 
-.debug_loc      0x00000000     0x14ea
+.debug_loc      0x00000000     0x1652
  *(.debug_loc)
- .debug_loc     0x00000000     0x14ea main.o
+ .debug_loc     0x00000000     0x1652 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
